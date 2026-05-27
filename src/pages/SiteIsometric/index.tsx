@@ -26,7 +26,7 @@ export function SiteIsometricPage() {
 
       {/* 3D Viewport */}
       <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
-        <Scene viewMode={viewMode} />
+        <Scene viewMode={viewMode} onDeviceClick={setSelectedDevice} />
 
         {/* Right panel overlay */}
         <EquipmentPanel />

@@ -9,9 +9,19 @@ const FAN_H = 1.14;
 
 interface EquipmentProps {
   position?: [number, number, number];
+  onClick?: () => void;
+  deviceName?: string;
+  status?: 'normal' | 'warning' | 'alarm';
 }
 
-export function CoolingTower({ position = [0, 0, 0] }: EquipmentProps) {
+function statusColor(s: 'normal' | 'warning' | 'alarm') {
+  return s === 'normal' ? '#00ff66' : s === 'warning' ? '#ffcc00' : '#ff3333';
+}
+function statusLabel(s: 'normal' | 'warning' | 'alarm') {
+  return s === 'normal' ? 'NORMAL' : s === 'warning' ? 'WARNING' : 'ALARM';
+}
+
+export function CoolingTower({ position = [0, 0, 0], onClick, deviceName = 'COOLING TOWER', status = 'normal' }: EquipmentProps) {
   const [hovered, setHovered] = useState(false);
 
   const faceMat = useMemo(() => new THREE.MeshBasicMaterial({
@@ -29,6 +39,7 @@ export function CoolingTower({ position = [0, 0, 0] }: EquipmentProps) {
       position={position}
       onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
       onPointerOut={() => setHovered(false)}
+      onClick={onClick}
     >
       {/* Main body */}
       <mesh material={faceMat} position={[L / 2, H / 2, W / 2]}>
@@ -129,6 +140,33 @@ export function CoolingTower({ position = [0, 0, 0] }: EquipmentProps) {
           <lineBasicMaterial color="#00aaff" transparent opacity={0.2} />
         </line>
       ))}
+
+      {/* Hover tooltip */}
+      {hovered && (
+        <Html position={[L / 2, H + 0.3, W / 2]} center style={{ pointerEvents: 'none' }}>
+          <div style={{
+            backgroundColor: 'rgba(10,10,12,0.94)',
+            border: `1px solid ${statusColor(status)}`,
+            padding: '6px 10px',
+            fontFamily: 'Consolas,monospace',
+            whiteSpace: 'nowrap',
+          }}>
+            <div style={{ color: '#ffffff', fontSize: '10px', fontWeight: 600, marginBottom: '4px' }}>
+              {deviceName}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{
+                width: '6px', height: '6px', borderRadius: '50%',
+                backgroundColor: statusColor(status),
+                boxShadow: `0 0 5px ${statusColor(status)}`,
+              }} />
+              <span style={{ color: statusColor(status), fontSize: '9px', fontWeight: 600 }}>
+                {statusLabel(status)}
+              </span>
+            </div>
+          </div>
+        </Html>
+      )}
 
       {/* Warning triangle on front */}
       <group position={[L / 2, H * 0.35, W + 0.01]}>

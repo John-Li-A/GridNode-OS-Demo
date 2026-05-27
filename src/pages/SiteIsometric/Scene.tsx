@@ -89,7 +89,12 @@ function DimensionLabels() {
   );
 }
 
-export function Scene({ viewMode }: { viewMode: 'iso' | 'top' | 'front' }) {
+interface SceneProps {
+  viewMode: 'iso' | 'top' | 'front';
+  onDeviceClick?: (deviceId: number) => void;
+}
+
+export function Scene({ viewMode, onDeviceClick }: SceneProps) {
   const controlsRef = useRef<any>(null);
 
   return (
@@ -123,12 +128,12 @@ export function Scene({ viewMode }: { viewMode: 'iso' | 'top' | 'front' }) {
       <ConcretePad />
 
       <group>
-        <ComputeContainer position={EQS.container} />
-        <TransformerUnit position={EQS.transformer} />
-        <CoolingTower position={EQS.tower} />
-        <ChargingPile position={EQS.chargers} count={4} />
-        <PowerCabinet position={EQS.powerCab} />
-        <ControlCabinet position={EQS.ctrlCab} />
+        <ComputeContainer position={EQS.container} onClick={() => onDeviceClick?.(1)} deviceName="20FT COMPUTE CONTAINER" />
+        <TransformerUnit position={EQS.transformer} onClick={() => onDeviceClick?.(2)} deviceName="1600kVA TRANSFORMER" />
+        <CoolingTower position={EQS.tower} onClick={() => onDeviceClick?.(3)} deviceName="CLOSED COOLING TOWER" />
+        <ChargingPile position={EQS.chargers} count={4} onClick={() => onDeviceClick?.(4)} deviceName="LIQUID COOLED CHARGER" />
+        <PowerCabinet position={EQS.powerCab} onClick={() => onDeviceClick?.(5)} deviceName="POWER DISTRIBUTION CABINET" />
+        <ControlCabinet position={EQS.ctrlCab} onClick={() => onDeviceClick?.(6)} deviceName="CONTROL CABINET" />
       </group>
 
       <DeviceLabels />
