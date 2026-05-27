@@ -19,7 +19,7 @@ function App() {
       {/* Page switcher */}
       <div style={{
         position: 'fixed',
-        top: '52px',
+        top: '4px',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 9999,

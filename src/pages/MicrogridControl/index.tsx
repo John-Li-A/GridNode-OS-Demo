@@ -109,7 +109,7 @@ export function MicrogridControlPage() {
   const isEscaping = engine.phase === 'phase1' || engine.phase === 'phase2' || engine.phase === 'phase3';
 
   return (
-    <div style={{ width: '100vw', height: '100vh', backgroundColor: '#0a0a0a', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div style={{ width: '100vw', height: '100vh', backgroundColor: '#0a0a0a', display: 'flex', flexDirection: 'column', overflow: 'hidden', paddingTop: '26px', boxSizing: 'border-box' }}>
       {/* Top bar */}
       <div style={{
         height: '48px', backgroundColor: '#0a0a0a', borderBottom: '1px solid #1a1a2e',

@@ -52,7 +52,7 @@ export function CabinetView({ gpus, onGPUClick }: Props) {
   const [hoveredGPU, setHoveredGPU] = useState<string | null>(null);
 
   // Build SVG view
-  const cabinetWidth = 520;
+  const cabinetWidth = 640;
   const cabinetHeight = 880;
   const topMargin = 30;
   const uHeight = (cabinetHeight - topMargin - 40) / 42;
@@ -65,14 +65,14 @@ export function CabinetView({ gpus, onGPUClick }: Props) {
     }}>
       <svg
         viewBox={`0 0 ${cabinetWidth} ${cabinetHeight}`}
-        style={{ width: '100%', maxWidth: '600px', height: 'auto', maxHeight: '100%' }}
+        style={{ width: '100%', maxWidth: '100%', height: 'auto', maxHeight: '100%' }}
         fontFamily="Consolas, monospace"
       >
         {/* Cabinet outer frame */}
-        <rect x={CABINET_LEFT} y={topMargin} width={400} height={cabinetHeight - topMargin - 10}
+        <rect x={CABINET_LEFT} y={topMargin} width={520} height={cabinetHeight - topMargin - 10}
           fill="none" stroke="#3a506b" strokeWidth={2} />
         {/* Inner frame */}
-        <rect x={CABINET_LEFT + 4} y={topMargin + 4} width={392} height={cabinetHeight - topMargin - 18}
+        <rect x={CABINET_LEFT + 4} y={topMargin + 4} width={512} height={cabinetHeight - topMargin - 18}
           fill="none" stroke="#2a2a3e" strokeWidth={1} />
 
         {/* U刻度（从下往上，U1在底部） */}
@@ -105,22 +105,22 @@ export function CabinetView({ gpus, onGPUClick }: Props) {
           return (
             <g key={node.id}>
               {/* Node label on the right */}
-              <text x={CABINET_LEFT + 410} y={nodeCenterY + 4}
+              <text x={CABINET_LEFT + 530} y={nodeCenterY + 4}
                 fill="#5a5a6a" fontSize={10} fontFamily="Consolas,monospace">
                 {node.label}
               </text>
-              <line x1={CABINET_LEFT + 400} y1={nodeCenterY} x2={CABINET_LEFT + 408} y2={nodeCenterY}
+              <line x1={CABINET_LEFT + 520} y1={nodeCenterY} x2={CABINET_LEFT + 528} y2={nodeCenterY}
                 stroke="#3a506b" strokeWidth={0.5} />
 
               {/* Node frame */}
-              <rect x={CABINET_LEFT + 12} y={nodeTopY} width={376} height={-nodeHeight}
+              <rect x={CABINET_LEFT + 12} y={nodeTopY} width={496} height={-nodeHeight}
                 fill="none" stroke="#2a2a3e" strokeWidth={1} rx={0} />
 
               {/* Supply manifold (left side) */}
               <rect x={CABINET_LEFT + 16} y={nodeTopY + 4} width={6} height={-nodeHeight - 8}
                 fill="none" stroke="#00aaff" strokeWidth={1} opacity={0.6} />
               {/* Return manifold (right side) */}
-              <rect x={CABINET_LEFT + 378} y={nodeTopY + 4} width={6} height={-nodeHeight - 8}
+              <rect x={CABINET_LEFT + 498} y={nodeTopY + 4} width={6} height={-nodeHeight - 8}
                 fill="none" stroke="#00aaff" strokeWidth={1} opacity={0.6} />
 
               {/* 8 GPUs per node */}
@@ -152,7 +152,7 @@ export function CabinetView({ gpus, onGPUClick }: Props) {
                       stroke="#00aaff" strokeWidth={1} opacity={0.5} />
                     {/* Coolant outlet line to return manifold */}
                     <line x1={gx + GPU_WIDTH} y1={gy + GPU_HEIGHT / 2}
-                      x2={CABINET_LEFT + 378} y2={gy + GPU_HEIGHT / 2}
+                      x2={CABINET_LEFT + 498} y2={gy + GPU_HEIGHT / 2}
                       stroke="#00aaff" strokeWidth={1} opacity={0.5} />
 
                     {/* Center cross */}
@@ -193,15 +193,15 @@ export function CabinetView({ gpus, onGPUClick }: Props) {
 
         {/* Bottom CDU area (U1-U6) */}
         <g>
-          <rect x={CABINET_LEFT + 12} y={cabinetHeight - 20 - 6 * uHeight} width={376} height={6 * uHeight - 10}
+          <rect x={CABINET_LEFT + 12} y={cabinetHeight - 20 - 6 * uHeight} width={496} height={6 * uHeight - 10}
             fill="none" stroke="#2a2a3e" strokeWidth={1} strokeDasharray="4,2" />
-          <text x={CABINET_LEFT + 200} y={cabinetHeight - 30}
+          <text x={CABINET_LEFT + 260} y={cabinetHeight - 30}
             textAnchor="middle" fill="#3a506b" fontSize={9} fontFamily="Consolas,monospace">
             CDU / PUMP / POWER (U1-U6)
           </text>
           {/* Mini CDU icons */}
           {[0, 1, 2, 3, 4].map(i => (
-            <circle key={i} cx={CABINET_LEFT + 60 + i * 50} cy={cabinetHeight - 55} r={12}
+            <circle key={i} cx={CABINET_LEFT + 90 + i * 75} cy={cabinetHeight - 55} r={12}
               fill="none" stroke="#3a506b" strokeWidth={1} />
           ))}
         </g>

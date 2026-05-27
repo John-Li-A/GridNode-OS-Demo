@@ -28,6 +28,7 @@ export function GPUClusterPage() {
     <div style={{
       width: '100vw', height: '100vh', backgroundColor: '#0a0a0a',
       display: 'flex', flexDirection: 'column', overflow: 'hidden',
+      paddingTop: '26px', boxSizing: 'border-box',
     }}>
       {/* Top bar */}
       <div style={{

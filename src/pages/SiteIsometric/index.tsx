@@ -18,6 +18,8 @@ export function SiteIsometricPage() {
         flexDirection: 'column',
         overflow: 'hidden',
         position: 'relative',
+        paddingTop: '26px',
+        boxSizing: 'border-box',
       }}
     >
       <Toolbar viewMode={viewMode} onViewChange={setViewMode} />
